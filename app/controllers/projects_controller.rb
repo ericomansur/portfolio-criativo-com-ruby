@@ -2,6 +2,8 @@ class ProjectsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_project, only: %i[show edit update destroy]
 
+  skip_before_action :authenticate_user!, only: :public_show
+
   def index
     @projects = current_user.projects
   end
@@ -36,6 +38,14 @@ class ProjectsController < ApplicationController
   def destroy
     @project.destroy
     redirect_to projects_path, notice: "Projeto removido"
+  end
+
+  def public_show
+    @user = User.find_by!(username: params[:username])
+    @project = @user.projects.find_by!(
+      slug: params[:project_slug],
+      public: true
+    )
   end
 
   private
