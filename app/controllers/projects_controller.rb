@@ -1,14 +1,9 @@
 class ProjectsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_project, only: %i[show edit update destroy]
-
-  skip_before_action :authenticate_user!, only: :public_show
+  before_action :authenticate_user!, except: :public_show
+  before_action :set_project, only: %i[edit update destroy]
 
   def index
     @projects = current_user.projects
-  end
-
-  def show
   end
 
   def new
@@ -24,9 +19,7 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def edit
-  end
-
+  def edit; end
   def update
     if @project.update(project_params)
       redirect_to projects_path, notice: "Projeto atualizado"
@@ -42,19 +35,12 @@ class ProjectsController < ApplicationController
 
   def public_show
     @user = User.find_by!(username: params[:username])
-    @project = @user.projects.find_by!(
-      slug: params[:project_slug],
-      public: true
-    )
+    @project = @user.projects.find_by!(slug: params[:project_slug], public: true)
   end
 
   private
 
   def set_project
     @project = current_user.projects.find(params[:id])
-  end
-
-  def project_params
-    params.require(:project).permit(:title, :description, :image, :public)
   end
 end
