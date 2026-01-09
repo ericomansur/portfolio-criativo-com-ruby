@@ -1,18 +1,18 @@
 <div class="container mt-4">
-  <div class="card mx-auto" style="max-width: 800px;">
-    <% if @project.image.attached? %>
-      <%= image_tag @project.image, class: "card-img-top" %>
-    <% end %>
+  <div class="text-center mb-4">
+    <h1><%= @project.title %></h1>
+    <p class="text-muted">
+      por <%= link_to "@#{@user.username}", public_profile_path(username: @user.username) %>
+    </p>
+  </div>
 
-    <div class="card-body">
-      <h2><%= @project.title %></h2>
-      <p class="text-muted">por @<%= @user.username %></p>
-
-      <hr>
-
-      <p><%= simple_format(@project.description) %></p>
-
-      <%= link_to "Voltar ao perfil", public_profile_path(username: @user.username), class: "btn btn-outline-secondary mt-3" %>
+  <% if @project.image.attached? %>
+    <div class="text-center mb-4">
+      <%= image_tag @project.image, class: "img-fluid rounded" %>
     </div>
+  <% end %>
+
+  <div class="card p-4">
+    <p><%= simple_format(@project.description) %></p>
   </div>
 </div>

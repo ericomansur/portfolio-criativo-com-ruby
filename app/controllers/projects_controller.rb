@@ -20,6 +20,7 @@ class ProjectsController < ApplicationController
   end
 
   def edit; end
+
   def update
     if @project.update(project_params)
       redirect_to projects_path, notice: "Projeto atualizado"
@@ -42,5 +43,9 @@ class ProjectsController < ApplicationController
 
   def set_project
     @project = current_user.projects.find(params[:id])
+  end
+
+  def project_params
+    params.require(:project).permit(:title, :description, :image, :public)
   end
 end
