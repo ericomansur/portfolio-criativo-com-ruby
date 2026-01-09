@@ -1,0 +1,27 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="/">Portfolio</a>
+
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav ms-auto">
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <span class="navbar-text me-3">
+              <%= current_user.email %>
+            </span>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Sair", destroy_user_session_path, method: :delete, class: "btn btn-outline-light btn-sm" %>
+          </li>
+        <% else %>
+          <li class="nav-item me-2">
+            <%= link_to "Entrar", new_user_session_path, class: "btn btn-outline-light btn-sm" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Cadastrar", new_user_registration_path, class: "btn btn-primary btn-sm" %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>
