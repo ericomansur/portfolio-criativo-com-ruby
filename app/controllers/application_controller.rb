@@ -19,3 +19,9 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:account_update, keys: [:username, :bio, :avatar])
   end
 end
+
+class ProfilesController < ApplicationController
+  def show
+    @user = User.find_by!(username: params[:username])
+  end
+end

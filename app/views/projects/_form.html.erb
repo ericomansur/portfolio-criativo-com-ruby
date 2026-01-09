@@ -1,0 +1,23 @@
+<%= form_with model: @project do |f| %>
+  <div class="mb-3">
+    <%= f.label :title %>
+    <%= f.text_field :title, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :description %>
+    <%= f.text_area :description, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :image %>
+    <%= f.file_field :image, class: "form-control" %>
+  </div>
+
+  <div class="form-check mb-3">
+    <%= f.check_box :public, class: "form-check-input" %>
+    <%= f.label :public, "Projeto público", class: "form-check-label" %>
+  </div>
+
+  <%= f.submit class: "btn btn-primary" %>
+<% end %>
