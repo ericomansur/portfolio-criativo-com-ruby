@@ -4,3 +4,15 @@
     <p class="text-muted"><%= @user.bio %></p>
   </div>
 </div>
+
+
+<div class="text-center mb-4">
+  <% if @user.avatar.attached? %>
+    <%= image_tag @user.avatar, class: "rounded-circle", width: 150, height: 150 %>
+  <% else %>
+    <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center"
+         style="width:150px;height:150px;">
+      Sem foto
+    </div>
+  <% end %>
+</div>
