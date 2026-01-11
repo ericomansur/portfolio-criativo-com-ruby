@@ -1,19 +1,18 @@
 class RankingController < ApplicationController
   def index
-    @most_liked = Project
-      .left_joins(:likes)
-      .where(public: true)
-      .select("projects.*, COUNT(likes.id) AS likes_count")
-      .group("projects.id")
-      .order("likes_count DESC")
-      .limit(10)
+    @trending = Rails.cache.fetch("ranking_trending_7d", expires_in: 10.minutes) do
+      Project
+        .where(public: true)
+        .where("created_at >= ?", 7.days.ago)
+        .order(Arel.sql("(likes_count * 3 + comments_count * 5 + views_count) DESC"))
+        .limit(10)
+    end
 
-    @most_viewed = Project
-      .left_joins(:project_views)
-      .where(public: true)
-      .select("projects.*, COUNT(project_views.id) AS views_count")
-      .group("projects.id")
-      .order("views_count DESC")
-      .limit(10)
+    @all_time = Rails.cache.fetch("ranking_all_time", expires_in: 30.minutes) do
+      Project
+        .where(public: true)
+        .order(Arel.sql("(likes_count * 3 + comments_count * 5 + views_count) DESC"))
+        .limit(10)
+    end
   end
 end

@@ -4,11 +4,19 @@ class Project < ApplicationRecord
   has_many :project_views, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :comments, dependent: :destroy
-  before_validation :generate_slug, on: :create
   has_many :notifications, as: :notifiable, dependent: :destroy
+
+  before_validation :generate_slug, on: :create
 
   validates :title, presence: true
   validates :slug, presence: true, uniqueness: { scope: :user_id }
+
+  def engagement_score
+    (likes_count.to_i * 3) +
+    (comments_count.to_i * 5) +
+    (views_count.to_i)
+  end
+
 
   private
 

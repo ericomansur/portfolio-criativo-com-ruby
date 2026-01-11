@@ -1,29 +1,27 @@
-<h2>Ranking de Projetos</h2>
+<h2>🏆 Ranking de Projetos</h2>
 
-<h4 class="mt-4">🔥 Mais Curtidos</h4>
+<h4 class="mt-4">🔥 Trending (últimos 7 dias)</h4>
 <ul>
-  <% @most_liked.each do |project| %>
+  <% @trending.each do |project| %>
     <li>
       <%= link_to project.title,
-          public_project_path(
-            username: project.user.username,
-            project_slug: project.slug
-          ) %>
-      (❤️ <%= project.likes_count %>)
+        public_project_path(username: project.user.username, project_slug: project.slug) %>
+      <small class="text-muted">
+        (Score: <%= project.engagement_score %>)
+      </small>
     </li>
   <% end %>
 </ul>
 
-<h4 class="mt-5">👁 Mais Vistos</h4>
+<h4 class="mt-5">👑 All-time</h4>
 <ul>
-  <% @most_viewed.each do |project| %>
+  <% @all_time.each do |project| %>
     <li>
       <%= link_to project.title,
-          public_project_path(
-            username: project.user.username,
-            project_slug: project.slug
-          ) %>
-      (👁 <%= project.views_count %>)
+        public_project_path(username: project.user.username, project_slug: project.slug) %>
+      <small class="text-muted">
+        (Score: <%= project.engagement_score %>)
+      </small>
     </li>
   <% end %>
 </ul>
