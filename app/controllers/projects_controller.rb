@@ -49,3 +49,21 @@ class ProjectsController < ApplicationController
     params.require(:project).permit(:title, :description, :image, :public)
   end
 end
+
+def public_show
+  @user = User.find_by!(username: params[:username])
+  @project = @user.projects.find_by!(slug: params[:project_slug], public: true)
+
+  track_view
+end
+
+def track_view
+  if user_signed_in?
+    return if @project.project_views.exists?(user: current_user)
+    @project.project_views.create(user: current_user)
+  else
+    ip = request.remote_ip
+    return if @project.project_views.exists?(ip_address: ip)
+    @project.project_views.create(ip_address: ip)
+  end
+end

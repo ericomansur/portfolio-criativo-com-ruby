@@ -1,7 +1,9 @@
 class Project < ApplicationRecord
   belongs_to :user
   has_one_attached :image
-
+  has_many :project_views, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  has_many :comments, dependent: :destroy
   before_validation :generate_slug, on: :create
 
   validates :title, presence: true
