@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../javascript/application.js"],
+  "sourcesContent": ["// Entry point for the build script in your package.json\n"],
+  "mappings": ";;;;;;AAAA;AAAA;AAAA;AAAA;",
+  "names": []
+}
