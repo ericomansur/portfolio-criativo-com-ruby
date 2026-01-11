@@ -9,6 +9,12 @@
                 <%= link_to "Meus Projetos", projects_path, class: "nav-link text-white" %>
             </li>
 
+            <%= form_with url: search_path, method: :get, local: true, class: "d-flex" do %>
+              <input type="text" name="q" class="form-control me-2" placeholder="Buscar usuários ou projetos">
+              <button class="btn btn-outline-light">Buscar</button>
+            <% end %>
+
+
             <li class="nav-item d-flex align-items-center me-3">
                 <% if current_user.avatar.attached? %>
                 <%= image_tag current_user.avatar, class: "rounded-circle me-2", width: 36, height: 36 %>

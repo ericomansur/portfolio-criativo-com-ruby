@@ -1,0 +1,5 @@
+C:\Users\ericm\OneDrive\Desktop\portfolio_criativo_ruby\portfolio_criativo>
+
+
+server on no powershell admin
+rails s

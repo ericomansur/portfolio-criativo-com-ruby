@@ -9,5 +9,8 @@ Rails.application.routes.draw do
 
   get "/@:username/:project_slug", to: "projects#public_show", as: :public_project
 
+  get "/search", to: "search#index", as: :search
+
+
   resources :projects
 end

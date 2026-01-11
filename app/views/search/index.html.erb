@@ -1,0 +1,40 @@
+<h2>Resultados para "<%= @query %>"</h2>
+
+<% if @users.any? %>
+  <h4>Perfis</h4>
+  <ul>
+    <% @users.each do |user| %>
+      <li>
+        <%= link_to "@#{user.username}", public_profile_path(username: user.username) %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% if @projects.any? %>
+  <h4>Projetos</h4>
+  <div class="row">
+    <% @projects.each do |project| %>
+      <div class="col-md-4 mb-3">
+        <div class="card">
+          <% if project.image.attached? %>
+            <%= image_tag project.image, class: "card-img-top" %>
+          <% end %>
+          <div class="card-body">
+            <h5><%= project.title %></h5>
+            <p><%= truncate(project.description, length: 80) %></p>
+            <small>
+              por
+              <%= link_to "@#{project.user.username}",
+                  public_profile_path(username: project.user.username) %>
+            </small>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<% if @users.blank? && @projects.blank? %>
+  <p>Nada encontrado.</p>
+<% end %>
