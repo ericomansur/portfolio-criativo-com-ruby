@@ -5,6 +5,7 @@ class Project < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :comments, dependent: :destroy
   before_validation :generate_slug, on: :create
+  has_many :notifications, as: :notifiable, dependent: :destroy
 
   validates :title, presence: true
   validates :slug, presence: true, uniqueness: { scope: :user_id }

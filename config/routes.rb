@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   resources :projects, only: [:index, :new, :create, :edit, :update, :destroy] do
     resource :like, only: %i[create destroy]
     resources :comments, only: :create
+    resources :notifications, only: :index
   end
 
 end

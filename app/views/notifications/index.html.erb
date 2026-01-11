@@ -1,0 +1,21 @@
+<h2>Notificações</h2>
+
+<% @notifications.each do |n| %>
+  <div class="border rounded p-3 mb-2">
+    <strong>@<%= n.actor.username %></strong>
+
+    <% if n.action == "liked" %>
+      curtiu seu projeto
+    <% elsif n.action == "commented" %>
+      comentou em seu projeto
+    <% end %>
+
+    <small class="text-muted d-block">
+      <%= time_ago_in_words(n.created_at) %> atrás
+    </small>
+  </div>
+<% end %>
+
+<% if @notifications.blank? %>
+  <p>Nenhuma notificação ainda.</p>
+<% end %>
