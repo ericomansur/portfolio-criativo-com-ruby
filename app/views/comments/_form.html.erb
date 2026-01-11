@@ -1,0 +1,7 @@
+<%= form_with model: [project, Comment.new], class: "mt-2" do |f| %>
+  <%= f.text_area :body,
+      rows: 2,
+      placeholder: "Escreva um comentário...",
+      class: "form-control mb-2" %>
+  <%= f.submit "Comentar", class: "btn btn-sm btn-primary" %>
+<% end %>

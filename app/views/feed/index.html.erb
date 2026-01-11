@@ -4,6 +4,7 @@
   <% @projects.each do |project| %>
     <div class="col-md-4 mb-4">
       <div class="card h-100">
+
         <% if project.image.attached? %>
           <%= image_tag project.image, class: "card-img-top" %>
         <% end %>
@@ -16,6 +17,7 @@
           </p>
 
           <div class="mt-auto">
+
             <div class="d-flex justify-content-between align-items-center mb-2">
               <small>
                 por
@@ -24,31 +26,25 @@
               </small>
 
               <%= render "projects/like_button", project: project %>
-            </div> <!-- FECHAMENTO QUE FALTAVA -->
+            </div>
 
             <div class="mt-2">
               <strong>Comentários</strong>
 
-              <% project.comments.each do |comment| %>
-                <div class="border rounded p-2 mt-2">
-                  <strong>@<%= comment.user.username %></strong><br>
-                  <span><%= comment.body %></span>
-                </div>
-              <% end %>
+              <div id="comments_project_<%= project.id %>">
+                <% project.comments.each do |comment| %>
+                  <%= render "comments/comment", comment: comment %>
+                <% end %>
+              </div>
 
               <% if user_signed_in? %>
-                <%= form_with model: [project, Comment.new], local: true, class: "mt-2" do |f| %>
-                  <%= f.text_area :body,
-                      rows: 2,
-                      placeholder: "Escreva um comentário...",
-                      class: "form-control mb-2" %>
-                  <%= f.submit "Comentar", class: "btn btn-sm btn-primary" %>
-                <% end %>
+                <%= render "comments/form", project: project %>
               <% end %>
             </div>
-          </div>
 
+          </div>
         </div>
+
       </div>
     </div>
   <% end %>

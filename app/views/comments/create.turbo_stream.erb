@@ -1,0 +1,7 @@
+<%= turbo_stream.append "comments_project_#{@project.id}",
+    partial: "comments/comment",
+    locals: { comment: @comment } %>
+
+<%= turbo_stream.replace dom_id(Comment.new),
+    partial: "comments/form",
+    locals: { project: @project } %>
