@@ -13,39 +13,59 @@
           <%= link_to "Ranking", ranking_path, class: "nav-link text-white" %>
         </li>
 
-        <%= form_with url: search_path, method: :get, local: true, class: "d-flex" do %>
+        <li class="nav-item me-3">
+          <%= form_with url: search_path, method: :get, local: true, class: "d-flex" do %>
             <input type="text" name="q" class="form-control me-2" placeholder="Buscar usuários ou projetos">
             <button class="btn btn-outline-light">Buscar</button>
-        <% end %>
+          <% end %>
+        </li>
 
         <% if user_signed_in? %>
-            <li class="nav-item me-3">
-                <%= link_to "Meus Projetos", projects_path, class: "nav-link text-white" %>
-            </li>
+          <% unread = current_user.notifications.where(read: false).count %>
 
-            <li class="nav-item d-flex align-items-center me-3">
-                <% if current_user.avatar.attached? %>
-                <%= image_tag current_user.avatar, class: "rounded-circle me-2", width: 36, height: 36 %>
-                <% end %>
-
-                <span class="navbar-text">
-                <%= link_to "@#{current_user.username}", public_profile_path(username: current_user.username), class: "text-white text-decoration-none" %>
+          <li class="nav-item me-3">
+            <%= link_to notifications_path, class: "nav-link position-relative text-white" do %>
+              🔔
+              <% if unread > 0 %>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  <%= unread %>
                 </span>
-            </li>
+              <% end %>
+            <% end %>
+          </li>
 
-            <li class="nav-item">
-                <%= button_to "Sair", destroy_user_session_path, method: :delete, class: "btn btn-outline-danger btn-sm" %>
-            </li>
-            <% else %>
+          <li class="nav-item me-3">
+            <%= link_to "Meus Projetos", projects_path, class: "nav-link text-white" %>
+          </li>
+
+          <li class="nav-item d-flex align-items-center me-3">
+            <% if current_user.avatar.attached? %>
+              <%= image_tag current_user.avatar, class: "rounded-circle me-2", width: 36, height: 36 %>
+            <% end %>
+
+            <%= link_to "@#{current_user.username}",
+                public_profile_path(username: current_user.username),
+                class: "text-white text-decoration-none" %>
+          </li>
+
+          <li class="nav-item">
+            <%= button_to "Sair",
+                destroy_user_session_path,
+                method: :delete,
+                class: "btn btn-outline-danger btn-sm" %>
+          </li>
+
+        <% else %>
           <li class="nav-item me-2">
             <%= link_to "Entrar", new_user_session_path, class: "btn btn-outline-light btn-sm" %>
           </li>
+
           <li class="nav-item">
             <%= link_to "Cadastrar", new_user_registration_path, class: "btn btn-primary btn-sm" %>
           </li>
         <% end %>
+
       </ul>
     </div>
   </div>
 </nav>
-

@@ -1,0 +1,15 @@
+<turbo-stream action="replace" target="notifications">
+  <template>
+    <% current_user.notifications.order(created_at: :desc).each do |notification| %>
+      <div class="mb-2">
+        <%= notification.actor.username %>
+        <% if notification.action == "liked" %>
+          curtiu seu projeto
+        <% elsif notification.action == "commented" %>
+          comentou no seu projeto
+        <% end %>
+        • <small><%= time_ago_in_words(notification.created_at) %> atrás</small>
+      </div>
+    <% end %>
+  </template>
+</turbo-stream>

@@ -3,32 +3,19 @@
 <%= button_to "Marcar todas como lidas",
     mark_all_as_read_notifications_path,
     method: :patch,
+    data: { turbo_confirm: "Marcar todas como lidas?" },
     class: "btn btn-sm btn-outline-secondary mb-3" %>
 
-<ul class="list-group">
+<div id="notifications">
   <% @notifications.each do |notification| %>
-    <li class="list-group-item <%= "fw-bold" unless notification.read %>">
-      <%= "@#{notification.actor.username}" %>
-
+    <div class="mb-2 <%= "fw-bold" unless notification.read %>">
+      <%= notification.actor.username %>
       <% if notification.action == "liked" %>
         curtiu seu projeto
       <% elsif notification.action == "commented" %>
         comentou no seu projeto
       <% end %>
-
-      <% if notification.notifiable.respond_to?(:project) %>
-        <%= link_to "ver",
-          public_project_path(
-            username: notification.notifiable.project.user.username,
-            project_slug: notification.notifiable.project.slug
-          ) %>
-      <% elsif notification.notifiable.is_a?(Project) %>
-        <%= link_to "ver",
-          public_project_path(
-            username: notification.notifiable.user.username,
-            project_slug: notification.notifiable.slug
-          ) %>
-      <% end %>
-    </li>
+      • <small><%= time_ago_in_words(notification.created_at) %> atrás</small>
+    </div>
   <% end %>
-</ul>
+</div>

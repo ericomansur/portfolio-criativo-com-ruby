@@ -3,12 +3,16 @@ class NotificationsController < ApplicationController
 
   def index
     @notifications = current_user.notifications
-      .includes(:actor, :notifiable)
-      .order(created_at: :desc)
+                                 .includes(:actor, :notifiable)
+                                 .order(created_at: :desc)
   end
 
   def mark_all_as_read
-    current_user.notifications.unread.update_all(read: true)
-    redirect_back fallback_location: notifications_path
+    current_user.notifications.update_all(read: true)
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to notifications_path }
+    end
   end
 end

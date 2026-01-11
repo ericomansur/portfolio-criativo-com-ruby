@@ -1,6 +1,6 @@
 <h2>Ranking de Projetos</h2>
 
-<h4>🔥 Mais Curtidos</h4>
+<h4 class="mt-4">🔥 Mais Curtidos</h4>
 <ul>
   <% @most_liked.each do |project| %>
     <li>
@@ -9,12 +9,12 @@
             username: project.user.username,
             project_slug: project.slug
           ) %>
-      (❤️ <%= project.likes.count %>)
+      (❤️ <%= project.likes_count %>)
     </li>
   <% end %>
 </ul>
 
-<h4 class="mt-4">👁 Mais Vistos</h4>
+<h4 class="mt-5">👁 Mais Vistos</h4>
 <ul>
   <% @most_viewed.each do |project| %>
     <li>
@@ -23,7 +23,7 @@
             username: project.user.username,
             project_slug: project.slug
           ) %>
-      (👁 <%= project.project_views.count %>)
+      (👁 <%= project.views_count %>)
     </li>
   <% end %>
 </ul>
