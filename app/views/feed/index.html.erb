@@ -23,21 +23,8 @@
                     public_profile_path(username: project.user.username) %>
               </small>
 
-              <% if user_signed_in? %>
-                <% if project.likes.exists?(user: current_user) %>
-                  <%= button_to "💔 #{project.likes.count}",
-                      project_like_path(project),
-                      method: :delete,
-                      class: "btn btn-sm btn-outline-danger" %>
-                <% else %>
-                  <%= button_to "❤️ #{project.likes.count}",
-                      project_like_path(project),
-                      class: "btn btn-sm btn-outline-secondary" %>
-                <% end %>
-              <% else %>
-                ❤️ <%= project.likes.count %>
-              <% end %>
-            </div>
+              <%= render "projects/like_button", project: project %>
+            </div> <!-- FECHAMENTO QUE FALTAVA -->
 
             <div class="mt-2">
               <strong>Comentários</strong>
@@ -60,6 +47,7 @@
               <% end %>
             </div>
           </div>
+
         </div>
       </div>
     </div>

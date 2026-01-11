@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
   get "/search", to: "search#index", as: :search
   get "/explorar", to: "feed#index", as: :public_feed
+  get "/ranking", to: "ranking#index", as: :ranking
+
 
   resources :projects, only: [:index, :new, :create, :edit, :update, :destroy] do
     resource :like, only: %i[create destroy]

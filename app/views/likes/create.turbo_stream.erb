@@ -1,0 +1,3 @@
+<%= turbo_stream.replace "like-project-#{@project.id}" do %>
+  <%= render "projects/like_button", project: @project %>
+<% end %>
