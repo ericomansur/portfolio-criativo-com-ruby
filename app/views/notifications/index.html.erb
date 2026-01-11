@@ -1,21 +1,34 @@
 <h2>Notificações</h2>
 
-<% @notifications.each do |n| %>
-  <div class="border rounded p-3 mb-2">
-    <strong>@<%= n.actor.username %></strong>
+<%= button_to "Marcar todas como lidas",
+    mark_all_as_read_notifications_path,
+    method: :patch,
+    class: "btn btn-sm btn-outline-secondary mb-3" %>
 
-    <% if n.action == "liked" %>
-      curtiu seu projeto
-    <% elsif n.action == "commented" %>
-      comentou em seu projeto
-    <% end %>
+<ul class="list-group">
+  <% @notifications.each do |notification| %>
+    <li class="list-group-item <%= "fw-bold" unless notification.read %>">
+      <%= "@#{notification.actor.username}" %>
 
-    <small class="text-muted d-block">
-      <%= time_ago_in_words(n.created_at) %> atrás
-    </small>
-  </div>
-<% end %>
+      <% if notification.action == "liked" %>
+        curtiu seu projeto
+      <% elsif notification.action == "commented" %>
+        comentou no seu projeto
+      <% end %>
 
-<% if @notifications.blank? %>
-  <p>Nenhuma notificação ainda.</p>
-<% end %>
+      <% if notification.notifiable.respond_to?(:project) %>
+        <%= link_to "ver",
+          public_project_path(
+            username: notification.notifiable.project.user.username,
+            project_slug: notification.notifiable.project.slug
+          ) %>
+      <% elsif notification.notifiable.is_a?(Project) %>
+        <%= link_to "ver",
+          public_project_path(
+            username: notification.notifiable.user.username,
+            project_slug: notification.notifiable.slug
+          ) %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

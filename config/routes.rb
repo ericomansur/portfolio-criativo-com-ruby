@@ -12,11 +12,14 @@ Rails.application.routes.draw do
   get "/explorar", to: "feed#index", as: :public_feed
   get "/ranking", to: "ranking#index", as: :ranking
 
-
   resources :projects, only: [:index, :new, :create, :edit, :update, :destroy] do
     resource :like, only: %i[create destroy]
     resources :comments, only: :create
-    resources :notifications, only: :index
   end
 
+  resources :notifications, only: [:index] do
+    collection do
+      patch :mark_all_as_read
+    end
+  end
 end

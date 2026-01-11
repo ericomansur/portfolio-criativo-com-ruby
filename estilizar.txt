@@ -1,0 +1,17 @@
+layouts/application
+
+shared/_navbar
+
+profiles/home
+
+feed/index
+
+projects/*
+
+likes + comments
+
+notifications
+
+search
+
+ranking
