@@ -1,49 +1,56 @@
-<h2 class="mb-4">Cadastrar</h2>
+<div class="auth-container">
+  <div class="auth-card">
+    <div class="auth-header">
+      <i class="fas fa-user-plus auth-icon"></i>
+      <h2>Criar Conta</h2>
+      <p class="text-muted">Junte-se à comunidade criativa</p>
+    </div>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'auth-form' }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="mb-3">
-    <%= f.label :email %>
-    <%= f.email_field :email, class: "form-control", autofocus: true, autocomplete: "email", required: true %>
-  </div>
+      <div class="form-group mb-3">
+        <%= f.label :username, "Nome de usuário", class: "form-label" %>
+        <div class="input-with-icon">
+          <i class="fas fa-at"></i>
+          <%= f.text_field :username, autofocus: true, class: "form-control", placeholder: "seuusuario" %>
+        </div>
+      </div>
 
-  <div class="mb-3">
-    <%= f.label :username %>
-    <%= f.text_field :username, class: "form-control", required: true %>
-  </div>
+      <div class="form-group mb-3">
+        <%= f.label :email, class: "form-label" %>
+        <div class="input-with-icon">
+          <i class="fas fa-envelope"></i>
+          <%= f.email_field :email, autocomplete: "email", class: "form-control", placeholder: "seu@email.com" %>
+        </div>
+      </div>
 
-  <div class="mb-3">
-    <%= f.label :bio %>
-    <%= f.text_area :bio, class: "form-control", rows: 3 %>
-  </div>
+      <div class="form-group mb-3">
+        <%= f.label :password, "Senha", class: "form-label" %>
+        <% if @minimum_password_length %>
+          <small class="text-muted">(mínimo <%= @minimum_password_length %> caracteres)</small>
+        <% end %>
+        <div class="input-with-icon">
+          <i class="fas fa-lock"></i>
+          <%= f.password_field :password, autocomplete: "new-password", class: "form-control", placeholder: "••••••••" %>
+        </div>
+      </div>
 
-  <div class="mb-3">
-    <%= f.label :avatar %>
-    <%= f.file_field :avatar, class: "form-control" %>
-  </div>
+      <div class="form-group mb-4">
+        <%= f.label :password_confirmation, "Confirmar senha", class: "form-label" %>
+        <div class="input-with-icon">
+          <i class="fas fa-lock"></i>
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control", placeholder: "••••••••" %>
+        </div>
+      </div>
 
-  <div class="mb-3">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-      <small class="text-muted d-block mb-1">
-        (<%= @minimum_password_length %> caracteres mínimos)
-      </small>
+      <div class="d-grid mb-4">
+        <%= f.submit "Criar conta", class: "btn btn-primary btn-lg" %>
+      </div>
     <% end %>
-    <%= f.password_field :password, class: "form-control", autocomplete: "new-password", required: true %>
-  </div>
 
-  <div class="mb-3">
-    <%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation, class: "form-control", autocomplete: "new-password", required: true %>
+    <div class="auth-links">
+      <%= render "devise/shared/links" %>
+    </div>
   </div>
-
-  <div class="d-grid">
-    <%= f.submit "Cadastrar", class: "btn btn-primary" %>
-  </div>
-<% end %>
-
-<div class="mt-3">
-  <%= render "devise/shared/links" %>
 </div>
-
