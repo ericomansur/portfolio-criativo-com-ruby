@@ -1,2 +1,101 @@
-<h1 class="text-center">Portfólio Criativo</h1>
-<p class="text-center text-muted">Descubra talentos criativos</p>
+<div class="hero-section text-center py-5">
+  <h1 class="display-3 fw-bold mb-3">Portfólio Criativo</h1>
+  <p class="lead text-muted mb-4">Descubra, compartilhe e conecte-se com talentos criativos de todo o mundo</p>
+  
+  <div class="d-flex gap-3 justify-content-center flex-wrap">
+    <%= link_to public_feed_path, class: "btn btn-primary btn-lg" do %>
+      <i class="fas fa-compass me-2"></i> Explorar Projetos
+    <% end %>
+    
+    <% if user_signed_in? %>
+      <%= link_to new_project_path, class: "btn btn-outline-primary btn-lg" do %>
+        <i class="fas fa-plus-circle me-2"></i> Criar Projeto
+      <% end %>
+    <% else %>
+      <%= link_to new_user_registration_path, class: "btn btn-outline-primary btn-lg" do %>
+        <i class="fas fa-rocket me-2"></i> Começar Agora
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<div class="features-section mt-5">
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="feature-card text-center p-4">
+        <div class="feature-icon mb-3">
+          <i class="fas fa-palette"></i>
+        </div>
+        <h4>Compartilhe Sua Arte</h4>
+        <p class="text-muted">Mostre seus projetos criativos para o mundo e construa seu portfólio online</p>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="feature-card text-center p-4">
+        <div class="feature-icon mb-3">
+          <i class="fas fa-star"></i>
+        </div>
+        <h4>Inspire-se</h4>
+        <p class="text-muted">Descubra trabalhos incríveis de outros criadores e encontre inspiração</p>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="feature-card text-center p-4">
+        <div class="feature-icon mb-3">
+          <i class="fas fa-users"></i>
+        </div>
+        <h4>Conecte-se</h4>
+        <p class="text-muted">Interaja com outros artistas, curta e comente em projetos que você ama</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.hero-section {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(236, 72, 153, 0.05) 100%);
+  border-radius: 24px;
+  padding: 4rem 2rem !important;
+  margin-bottom: 3rem;
+}
+
+.hero-section h1 {
+  font-size: 3.5rem;
+  background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.feature-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.feature-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+.feature-icon {
+  font-size: 3rem;
+  color: var(--primary-color);
+  transition: var(--transition);
+}
+
+.feature-card:hover .feature-icon {
+  transform: scale(1.1);
+  color: var(--secondary-color);
+}
+
+@media (max-width: 768px) {
+  .hero-section h1 {
+    font-size: 2.5rem;
+  }
+}
+</style>

@@ -1,18 +1,22 @@
 <div id="like-project-<%= project.id %>">
   <% if user_signed_in? %>
     <% if project.likes.exists?(user: current_user) %>
-      <%= button_to "💔 #{project.likes.count}",
-          project_like_path(project),
+      <%= button_to project_like_path(project),
           method: :delete,
           form: { data: { turbo_stream: true } },
-          class: "btn btn-sm btn-outline-danger" %>
+          class: "btn btn-sm btn-danger" do %>
+        <i class="fas fa-heart"></i> <%= project.likes.count %>
+      <% end %>
     <% else %>
-      <%= button_to "❤️ #{project.likes.count}",
-          project_like_path(project),
+      <%= button_to project_like_path(project),
           form: { data: { turbo_stream: true } },
-          class: "btn btn-sm btn-outline-secondary" %>
+          class: "btn btn-sm btn-outline-danger" do %>
+        <i class="far fa-heart"></i> <%= project.likes.count %>
+      <% end %>
     <% end %>
   <% else %>
-    ❤️ <%= project.likes.count %>
+    <span class="text-muted">
+      <i class="far fa-heart"></i> <%= project.likes.count %>
+    </span>
   <% end %>
 </div>

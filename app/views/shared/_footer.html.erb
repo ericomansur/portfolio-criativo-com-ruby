@@ -1,0 +1,45 @@
+<footer class="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 mb-4">
+        <h5>Portfolio Criativo</h5>
+        <p class="text-muted">Uma plataforma para criadores compartilharem seus projetos e se conectarem com outros talentos.</p>
+      </div>
+
+      <div class="col-md-4 mb-4">
+        <h5>Links Rápidos</h5>
+        <%= link_to "Explorar", public_feed_path %>
+        <%= link_to "Ranking", ranking_path %>
+        <% if user_signed_in? %>
+          <%= link_to "Meus Projetos", projects_path %>
+          <%= link_to "Notificações", notifications_path %>
+        <% else %>
+          <%= link_to "Entrar", new_user_session_path %>
+          <%= link_to "Cadastrar", new_user_registration_path %>
+        <% end %>
+      </div>
+
+      <div class="col-md-4 mb-4">
+        <h5>Redes Sociais</h5>
+        <div class="d-flex gap-3">
+          <a href="#" class="text-decoration-none fs-4" title="Twitter">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="#" class="text-decoration-none fs-4" title="Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="#" class="text-decoration-none fs-4" title="LinkedIn">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="#" class="text-decoration-none fs-4" title="Dribbble">
+            <i class="fab fa-dribbble"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="mb-0">&copy; <%= Time.current.year %> Portfolio Criativo. Feito com ❤️ por criadores.</p>
+    </div>
+  </div>
+</footer>
