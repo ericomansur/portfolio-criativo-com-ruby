@@ -9,6 +9,6 @@ class ProfilesController < ApplicationController
 
   def show
     @user = User.find_by!(username: params[:username])
-    @projects = @user.projects.where(public: true).order(created_at: :desc)
+    @projects = @user.projects.where(public: true).order(created_at: :desc) || []
   end
 end

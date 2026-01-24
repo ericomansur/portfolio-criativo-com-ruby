@@ -5,15 +5,17 @@
     <%= button_to unfollow_user_path(username: user.username), 
         method: :delete,
         class: "btn btn-outline-danger",
-        data: { turbo_frame: "follow_button_#{user.id}" } do %>
+        form: { data: { turbo_frame: "follow_button_#{user.id}" } } do %>
       Deixar de seguir
     <% end %>
   <% else %>
     <%= button_to follow_user_path(username: user.username),
         method: :post,
         class: "btn btn-primary",
-        data: { turbo_frame: "follow_button_#{user.id}" } do %>
+        form: { data: { turbo_frame: "follow_button_#{user.id}" } } do %>
       Seguir
     <% end %>
   <% end %>
+<% else %>
+  <%= link_to "Entrar para seguir", new_user_session_path, class: "btn btn-outline-primary" %>
 <% end %>
