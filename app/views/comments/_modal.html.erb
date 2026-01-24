@@ -1,0 +1,23 @@
+<div class="modal fade" id="commentsModal<%= project.id %>" tabindex="-1" aria-labelledby="commentsModalLabel<%= project.id %>" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="commentsModalLabel<%= project.id %>">
+          Comentários de "<%= project.title %>"
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div id="comments_project_<%= project.id %>">
+          <% if project.comments.any? %>
+            <% project.comments.order(created_at: :desc).each do |comment| %>
+              <%= render "comments/comment", comment: comment %>
+            <% end %>
+          <% else %>
+            <p class="text-muted">Nenhum comentário ainda. Seja o primeiro!</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

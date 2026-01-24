@@ -1,3 +1,4 @@
+<!-- app/views/profiles/show.html.erb -->
 <div class="card mx-auto text-center p-4" style="max-width: 600px;">
   <% if @user.avatar.attached? %>
     <%= image_tag @user.avatar, class: "rounded-circle mb-3", width: 120, height: 120 %>
@@ -6,10 +7,36 @@
   <h2 class="mb-1">@<%= @user.username %></h2>
   <p class="text-muted"><%= @user.bio.presence || "Este usuário ainda não adicionou uma bio." %></p>
 
+  <!-- Estatísticas de seguidores -->
+  <div class="d-flex justify-content-center gap-4 my-3">
+    <%= link_to user_followers_path(username: @user.username), class: "text-decoration-none text-dark" do %>
+      <div>
+        <strong><%= @user.followers_count %></strong>
+        <small class="text-muted d-block">Seguidores</small>
+      </div>
+    <% end %>
+    
+    <%= link_to user_following_path(username: @user.username), class: "text-decoration-none text-dark" do %>
+      <div>
+        <strong><%= @user.following_count %></strong>
+        <small class="text-muted d-block">Seguindo</small>
+      </div>
+    <% end %>
+    
+    <div>
+      <strong><%= @projects.count %></strong>
+      <small class="text-muted d-block">Projetos</small>
+    </div>
+  </div>
+
+  <!-- Botão de seguir -->
+  <turbo-frame id="follow_button_<%= @user.id %>">
+    <%= render "follow_button", user: @user %>
+  </turbo-frame>
+
   <% if user_signed_in? && current_user == @user %>
     <div class="mt-3">
       <%= link_to "Criar novo projeto", new_project_path, class: "btn btn-success me-2" %>
-      <%= link_to "Ver como visitante", public_profile_path(username: @user.username), class: "btn btn-outline-secondary" %>
     </div>
   <% end %>
 </div>

@@ -1,0 +1,30 @@
+<div class="container">
+  <h2>@<%= @user.username %> está seguindo</h2>
+  
+  <% if @following.any? %>
+    <div class="list-group mt-3">
+      <% @following.each do |followed_user| %>
+        <div class="list-group-item d-flex justify-content-between align-items-center">
+          <div class="d-flex align-items-center">
+            <% if followed_user.avatar.attached? %>
+              <%= image_tag followed_user.avatar, class: "rounded-circle me-3", width: 50, height: 50 %>
+            <% else %>
+              <div class="rounded-circle bg-secondary me-3" style="width: 50px; height: 50px;"></div>
+            <% end %>
+            
+            <%= link_to public_profile_path(username: followed_user.username), class: "text-decoration-none text-dark" do %>
+              <strong>@<%= followed_user.username %></strong>
+              <small class="d-block text-muted"><%= followed_user.bio.presence || "Sem bio" %></small>
+            <% end %>
+          </div>
+          
+          <%= render "profiles/follow_button", user: followed_user %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-muted mt-3">Não está seguindo ninguém ainda.</p>
+  <% end %>
+  
+  <%= link_to "Voltar ao perfil", public_profile_path(username: @user.username), class: "btn btn-secondary mt-3" %>
+</div>

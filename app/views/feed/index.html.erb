@@ -28,14 +28,15 @@
               <%= render "projects/like_button", project: project %>
             </div>
 
+            <!-- Seção de comentários atualizada -->
             <div class="mt-2">
-              <strong>Comentários</strong>
-
-              <div id="comments_project_<%= project.id %>">
-                <% project.comments.each do |comment| %>
-                  <%= render "comments/comment", comment: comment %>
-                <% end %>
-              </div>
+              <% if project.comments_count.to_i > 0 %>
+                <a href="#" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#commentsModal<%= project.id %>">
+                  <strong>Comentários (<%= project.comments_count %>)</strong>
+                </a>
+              <% else %>
+                <strong>Comentários (0)</strong>
+              <% end %>
 
               <% if user_signed_in? %>
                 <%= render "comments/form", project: project %>
@@ -47,6 +48,9 @@
 
       </div>
     </div>
+
+    <!-- Modal de Comentários -->
+    <%= render "comments/modal", project: project %>
   <% end %>
 </div>
 
