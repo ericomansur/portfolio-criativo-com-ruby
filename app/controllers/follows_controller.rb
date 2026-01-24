@@ -1,9 +1,9 @@
+# app/controllers/follows_controller.rb
 class FollowsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:create, :destroy]
+  before_action :set_user
 
   def create
-    @user = User.find_by!(username: params[:username])
-    
     if current_user.follow(@user)
       respond_to do |format|
         format.html { redirect_to public_profile_path(username: @user.username) }
@@ -13,8 +13,6 @@ class FollowsController < ApplicationController
   end
 
   def destroy
-    @user = User.find_by!(username: params[:username])
-    
     current_user.unfollow(@user)
     
     respond_to do |format|
@@ -24,12 +22,26 @@ class FollowsController < ApplicationController
   end
 
   def followers
-    @user = User.find_by!(username: params[:username])
-    @followers = @user.followers
+    # Só o próprio usuário ou usuários logados podem ver seguidores
+    if user_signed_in? && (current_user == @user || current_user.following?(@user))
+      @followers = @user.followers
+    else
+      redirect_to public_profile_path(username: @user.username), alert: "Você não tem permissão para ver isso."
+    end
   end
 
   def following
+    # Só o próprio usuário ou usuários logados podem ver quem ele segue
+    if user_signed_in? && (current_user == @user || current_user.following?(@user))
+      @following = @user.following
+    else
+      redirect_to public_profile_path(username: @user.username), alert: "Você não tem permissão para ver isso."
+    end
+  end
+
+  private
+
+  def set_user
     @user = User.find_by!(username: params[:username])
-    @following = @user.following
   end
 end

@@ -7,7 +7,7 @@ class FeedController < ApplicationController
 
   def personalized
     unless user_signed_in?
-      redirect_to new_user_session_path, alert: "Você precisa estar logado para ver seu feed personalizado."
+      redirect_to root_path, alert: "Você precisa estar logado para ver seu feed personalizado."
       return
     end
 

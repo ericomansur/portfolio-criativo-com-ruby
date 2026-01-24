@@ -6,18 +6,11 @@ Rails.application.routes.draw do
 
   root "profiles#home"
 
-  get "/@:username", to: "profiles#show", as: :public_profile
-  get "/@:username/:project_slug", to: "projects#public_show", as: :public_project
-  post "/@:username/follow", to: "follows#create", as: :follow_user
-  delete "/@:username/unfollow", to: "follows#destroy", as: :unfollow_user
-  get "/@:username/followers", to: "follows#followers", as: :user_followers
-  get "/@:username/following", to: "follows#following", as: :user_following
-
   get "/search", to: "search#index", as: :search
   get "/explorar", to: "feed#index", as: :public_feed
   get "/ranking", to: "ranking#index", as: :ranking
-
-  get "/feed", to: "feed#personalized", as: :personalized_feed
+  
+  get "/seguindo", to: "feed#personalized", as: :personalized_feed
 
   resources :projects, only: [:index, :new, :create, :edit, :update, :destroy] do
     resource :like, only: %i[create destroy]
@@ -29,4 +22,12 @@ Rails.application.routes.draw do
       patch :mark_all_as_read
     end
   end
+
+  get "/@:username/seguidores", to: "follows#followers", as: :user_followers
+  get "/@:username/seguindo", to: "follows#following", as: :user_following
+  post "/@:username/follow", to: "follows#create", as: :follow_user
+  delete "/@:username/unfollow", to: "follows#destroy", as: :unfollow_user
+
+  get "/@:username", to: "profiles#show", as: :public_profile
+  get "/@:username/:project_slug", to: "projects#public_show", as: :public_project
 end
